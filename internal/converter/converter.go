@@ -1,8 +1,10 @@
 package converter
 
 import (
+	"encoding/json"
 	"github.com/Pashgunt/converter/internal/closure"
 	"github.com/Pashgunt/converter/internal/entity"
+	"github.com/Pashgunt/converter/internal/enum"
 	"github.com/Pashgunt/converter/internal/helper"
 	"github.com/Pashgunt/converter/internal/infrastructure"
 	"github.com/Pashgunt/converter/internal/reflect"
@@ -14,8 +16,16 @@ import (
 func Convert[TData helper.DataConstraint, TGroups helper.GroupConstraint](
 	data TData,
 	object interface{},
-	groups TGroups,
+	context map[string]TGroups,
 ) error {
+	if _, isset := context[enum.ContextGroup]; !isset {
+		err := json.Unmarshal(helper.PrepareData(data), object)
+
+		if err != nil {
+			return err
+		}
+	}
+
 	rawData, err := unmarshal.Decode(helper.PrepareData(data))
 
 	if err != nil {
@@ -27,7 +37,7 @@ func Convert[TData helper.DataConstraint, TGroups helper.GroupConstraint](
 	param := infrastructure.ParamPool.
 		Get().(*entity.Param).
 		Init(
-			helper.PrepareGroups(groups),
+			helper.PrepareGroups(context[enum.ContextGroup]),
 			rawData,
 			reflectObject,
 			reflectType,
@@ -37,7 +47,13 @@ func Convert[TData helper.DataConstraint, TGroups helper.GroupConstraint](
 		if isClosure(*param, numField) {
 			closure.InitStructure(*param, numField)
 
-			return Convert(closure.GetInData(*param, numField), reflectObject.Field(numField).Interface(), param.InGroups())
+			return Convert(
+				closure.GetInData(*param, numField),
+				reflectObject.Field(numField).Interface(),
+				map[string][]string{
+					enum.ContextGroup: param.InGroups(),
+				},
+			)
 		}
 
 		if value, isSet := isSetValue(*param, numField); isSet {
