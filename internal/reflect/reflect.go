@@ -1,8 +1,8 @@
 package reflect
 
 import (
+	"github.com/Pashgunt/converter/internal/enum"
 	"reflect"
-	"serializer/internal/enum"
 )
 
 func PrepareValType(value interface{}) (reflect.Value, reflect.Type) {

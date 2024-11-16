@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"serializer/internal/converter"
+	"github.com/Pashgunt/converter/internal/converter"
 )
 
 type Inner struct {
@@ -20,5 +19,4 @@ func main() {
 
 	var tShort Test
 	converter.Convert(jsonData, &tShort, "full")
-	fmt.Println(tShort)
 }

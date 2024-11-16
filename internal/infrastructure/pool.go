@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	"serializer/internal/entity"
+	"github.com/Pashgunt/converter/internal/entity"
 	"sync"
 )
 

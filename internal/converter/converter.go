@@ -1,13 +1,13 @@
 package converter
 
 import (
+	"github.com/Pashgunt/converter/internal/closure"
+	"github.com/Pashgunt/converter/internal/entity"
+	"github.com/Pashgunt/converter/internal/helper"
+	"github.com/Pashgunt/converter/internal/infrastructure"
+	"github.com/Pashgunt/converter/internal/reflect"
+	"github.com/Pashgunt/converter/internal/unmarshal"
 	corereflect "reflect"
-	"serializer/internal/closure"
-	"serializer/internal/entity"
-	"serializer/internal/helper"
-	"serializer/internal/infrastructure"
-	"serializer/internal/reflect"
-	"serializer/internal/unmarshal"
 	"slices"
 )
 

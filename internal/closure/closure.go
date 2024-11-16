@@ -2,9 +2,9 @@ package closure
 
 import (
 	"encoding/json"
+	"github.com/Pashgunt/converter/internal/entity"
+	"github.com/Pashgunt/converter/internal/reflect"
 	corereflect "reflect"
-	"serializer/internal/entity"
-	"serializer/internal/reflect"
 )
 
 func InitStructure(param entity.Param, index int) {
