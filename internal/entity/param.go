@@ -55,11 +55,9 @@ func (p *Param) Init(
 	reflectObject reflect.Value,
 	reflectType reflect.Type,
 ) *Param {
-	p.
+	return p.
 		SetInGroups(inGroups).
 		SetRawData(rawData).
 		SetReflectObject(reflectObject).
 		SetReflectType(reflectType)
-
-	return p
 }
