@@ -27,10 +27,8 @@ func getGroupFilePath(alias string) string {
 	return fmt.Sprintf("%s/%s.yaml", config.PathGroup, alias)
 }
 
-func GetGroups(groupAlias []string) ([]string, error) {
-	var groups []string
-
-	for _, alias := range groupAlias {
+func GetGroups(groups []string) ([]string, error) {
+	for _, alias := range groups {
 		if !existGroup(alias) {
 			continue
 		}

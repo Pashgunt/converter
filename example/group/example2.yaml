@@ -1,0 +1,4 @@
+example2:
+  struct: main.Test
+  path:
+    - 'Inner[short,full]'

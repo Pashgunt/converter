@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/Pashgunt/converter/internal/converter"
 	"github.com/Pashgunt/converter/internal/enum"
 )
@@ -12,7 +11,7 @@ type Inner struct {
 }
 
 type Outer struct {
-	Abc string `json:"abc" group:"inner__short"`
+	Ref string `json:"ref" group:"inner__short"`
 }
 
 type Test struct {
@@ -22,8 +21,11 @@ type Test struct {
 }
 
 func main() {
-	jsonData := `{"name": "Test Name", "data": "Detailed Data", "inner": {"locate": "SPB","outer": {"abc": "SPB2"}}}`
-	var tShort Test
-	converter.Convert(jsonData, &tShort, map[string][]string{enum.ContextGroup: []string{"test_data_group"}})
-	fmt.Println(tShort)
+	var test Test
+
+	_ = converter.Convert(
+		`{"name": "Test Name", "data": "Test Data", "inner": {"locate": "Test Inner Locate","outer": {"ref": "Test Outer Ref"}}}`,
+		test,
+		map[string][]string{enum.ContextGroup: {"test__full", "example1", "example6", "inner__outer"}},
+	)
 }

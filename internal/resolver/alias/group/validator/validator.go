@@ -8,7 +8,6 @@ import (
 	"github.com/Pashgunt/converter/internal/resolver/alias/group/modify"
 )
 
-// todo add text validator errors
 func ValidGroupAlias(rawData map[string]interface{}, alias string) error {
 	if err := issetAliasConstraint(rawData, alias); err != nil {
 		return err
