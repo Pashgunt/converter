@@ -34,6 +34,13 @@ func TestConvert(t *testing.T) {
 		args    args[TData, TGroups]
 		wantErr bool
 	}
+
+	environment := serializer.Environment{}
+
+	if _, err := environment.Load("./.env.test.serializer.example"); err != nil {
+		panic(err)
+	}
+
 	tests := []testCase[string, []string]{
 		{
 			name: "Converter",

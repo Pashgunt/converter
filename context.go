@@ -1,5 +1,6 @@
 package serializer
 
 const (
-	ContextGroup = "group"
+	ContextGroup       = "group"
+	ContextEnvironment = "environment"
 )

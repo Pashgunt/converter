@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"fmt"
-	"github.com/Pashgunt/converter/config"
 	"github.com/Pashgunt/converter/internal/enum"
 	"github.com/Pashgunt/converter/internal/helper"
 	"github.com/Pashgunt/converter/internal/resolver/alias/group/modify"
@@ -24,7 +23,7 @@ func existGroup(alias string) bool {
 }
 
 func getGroupFilePath(alias string) string {
-	return fmt.Sprintf("%s/%s.yaml", config.PathGroup, alias)
+	return fmt.Sprintf("%s/%s.yaml", os.Getenv(GroupDir), alias)
 }
 
 func GetGroups(groups []string) ([]string, error) {
