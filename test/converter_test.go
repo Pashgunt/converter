@@ -1,8 +1,7 @@
 package test
 
 import (
-	"github.com/Pashgunt/converter/internal/converter"
-	"github.com/Pashgunt/converter/internal/enum"
+	"github.com/Pashgunt/converter"
 	"github.com/Pashgunt/converter/internal/helper"
 	"testing"
 )
@@ -42,7 +41,7 @@ func TestConvert(t *testing.T) {
 				data:   `{"name": "Test Name", "data": "Test Data", "inner": {"locate": "Test Inner Locate", "outer": {"ref": "Test Outer Ref"}}}`,
 				object: &testData,
 				context: map[string][]string{
-					enum.ContextGroup: {"example6"},
+					serializer.ContextGroup: {"example6"},
 				},
 			},
 			wantErr: false,
@@ -50,7 +49,7 @@ func TestConvert(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := converter.Convert(tt.args.data, tt.args.object, tt.args.context); (err != nil) != tt.wantErr {
+			if err := serializer.Convert(tt.args.data, tt.args.object, tt.args.context); (err != nil) != tt.wantErr {
 				t.Errorf("Convert() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/Pashgunt/converter/internal/resolver/alias/group"
+	"github.com/Pashgunt/converter"
 	"reflect"
 	"testing"
 )
@@ -56,7 +56,7 @@ func TestGetGroups(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := group.GetGroups(tt.args.groupAlias)
+			got, err := serializer.GetGroups(tt.args.groupAlias)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetGroups() error = %v, wantErr %v", err, tt.wantErr)
 				return

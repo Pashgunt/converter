@@ -1,4 +1,4 @@
-package enum
+package serializer
 
 const (
 	ContextGroup = "group"

@@ -1,16 +1,14 @@
-package converter
+package serializer
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/Pashgunt/converter/internal/closure"
 	"github.com/Pashgunt/converter/internal/entity"
-	"github.com/Pashgunt/converter/internal/enum"
 	"github.com/Pashgunt/converter/internal/exception"
 	"github.com/Pashgunt/converter/internal/helper"
 	"github.com/Pashgunt/converter/internal/infrastructure"
 	"github.com/Pashgunt/converter/internal/reflect"
-	"github.com/Pashgunt/converter/internal/resolver/alias/group"
 	"github.com/Pashgunt/converter/internal/unmarshal"
 	corereflect "reflect"
 	"slices"
@@ -21,13 +19,13 @@ func Convert[TData helper.DataConstraint, TGroups helper.GroupConstraint](
 	object interface{},
 	context map[string]TGroups,
 ) error {
-	if _, isset := context[enum.ContextGroup]; !isset {
+	if _, isset := context[ContextGroup]; !isset {
 		if err := json.Unmarshal(helper.PrepareData(data), object); err != nil {
 			return err
 		}
 	}
 
-	sliceOfGroups, err := group.GetGroups(helper.PrepareGroups(context[enum.ContextGroup]))
+	sliceOfGroups, err := GetGroups(helper.PrepareGroups(context[ContextGroup]))
 
 	if err != nil {
 		return err
