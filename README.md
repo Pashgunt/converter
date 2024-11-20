@@ -72,3 +72,53 @@ To get the groups that are generated from the file you described, you can use th
 ```go
 groups, err := serializer.GetGroups([]string{})
 ```
+
+## Example
+
+Example of a JSON input structure
+
+```json
+{
+  "name": "Test Name",
+  "data": "Test Data",
+  "inner": {
+    "locate": "Test Inner Locate",
+    "outer": {
+      "ref": "Test Outer Ref"
+    }
+  }
+}
+```
+
+Description of the JSON structure on Go, taking into account groups
+
+```go
+type Inner struct {
+	Locate string `json:"locate" group:"inner__short"`
+	Outer  *Outer `json:"outer" group:"inner__outer"`
+}
+
+type Outer struct {
+	Ref string `json:"ref" group:"inner__short"`
+}
+
+type Test struct {
+	Name  string `json:"name" group:"test__full"`
+	Data  string `json:"data" group:"test__full"`
+	Inner *Inner `json:"inner" group:"test__inner"`
+}
+```
+
+As a result, if only the `test__full` group is passed to `Convert`, then only those fields that have `group = test__full` are converted to the Test structure.
+At the same time, the description of the JSON structure will remain complete and the filling of fields for different tasks can be adjusted using `group`.
+
+````go
+	_ = serializer.Convert(
+		`{"name": "Test Name", "data": "Test Data", "inner": {"locate": "Test Inner Locate","outer": {"ref": "Test Outer Ref"}}}`,
+		&test,
+		map[string][]string{
+			serializer.ContextGroup:       {"test__full"},
+			serializer.ContextEnvironment: {environment.GetGroupDir()},
+		},
+	)
+````

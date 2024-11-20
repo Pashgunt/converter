@@ -1,4 +1,10 @@
 {
-  "name": "Pavel",
-  "age": 21
+  "name": "Test Name",
+  "data": "Test Data",
+  "inner": {
+    "locate": "Test Inner Locate",
+    "outer": {
+      "ref": "Test Outer Ref"
+    }
+  }
 }
